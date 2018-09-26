@@ -1,6 +1,6 @@
 
 /* Dependencies */
-var mongoose = require('mongoose'), 
+var mongoose = require('mongoose'),
     Listing = require('../models/listings.server.model.js');
 
 /*
@@ -43,7 +43,20 @@ exports.update = function(req, res) {
   /** TODO **/
   /* Replace the article's properties with the new properties found in req.body */
   /* Save the article */
-};
+
+    var code = req.body.code,
+    	name = req.body.name,
+    	address = req.body.address,
+	coordinates = null;
+
+    if(address !== null) 
+        coordinates = req.results; 
+
+    Listing.findOneAndUpdate({"name": name}, { "address": address, "name": name, "code": code, "coordinates": coordinates}, {new: true}, function(err, doc){
+        if(err) throw err;
+        else  res.json(doc); 
+    });
+ };
 
 /* Delete a listing */
 exports.delete = function(req, res) {
@@ -51,12 +64,22 @@ exports.delete = function(req, res) {
 
   /** TODO **/
   /* Remove the article */
+   Listing.find({code: listing.code}, function(err) {
+        if (err) throw err;
+   }).remove(function(err){
+        if(err) throw err;
+	else res.json(listing);
+   });
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res) {
   /** TODO **/
   /* Your code here */
+    Listing.find().sort({code: 1}).exec(function(err, docs) {
+        if (err) throw err;
+        else res.json(docs); 
+    });
 };
 
 /* 
