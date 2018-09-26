@@ -7,7 +7,7 @@ var path = require('path'),
     listingsRouter = require('../routes/listings.server.routes');
 
 require('../routes/listings.server.routes');
-
+const options = {useMongoClient: true}
 module.exports.init = function() {
   //connect to database
   mongoose.Promise = global.Promise;
