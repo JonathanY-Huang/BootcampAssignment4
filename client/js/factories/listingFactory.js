@@ -1,7 +1,7 @@
 angular.module('listings', []).factory('Listings', function($http) {
   var methods = {
     getAll: function() {
-      return $http.get('http://localhost:8080/api/listings');
+      return $http.get('https://assignment4321.herokuapp.com');
     },
 	
 	create: function(listing) {
@@ -12,7 +12,7 @@ angular.module('listings', []).factory('Listings', function($http) {
 	   /**TODO
         return result of HTTP delete method
        */
-	return $http.delete('http://localhost:8080/api/listings', id);
+	return $http.delete('https://assignment4321.herokuapp.com', id);
     }
   };
 
